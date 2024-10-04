@@ -40,7 +40,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 async function displayPosts() {
   try {
+    console.log('Fetching posts...');
     const posts = await backend.getPosts();
+    console.log('Fetched posts:', posts);
+
     const postsSection = document.getElementById('posts');
     postsSection.innerHTML = '';
 
@@ -54,7 +57,7 @@ async function displayPosts() {
       article.innerHTML = `
         <h2>${post.title}</h2>
         <p class="author">By ${post.author}</p>
-        ${post.image[0] ? `<img src="${post.image[0]}" alt="${post.title}" class="post-image">` : ''}
+        ${post.image && post.image.length > 0 ? `<img src="${post.image[0]}" alt="${post.title}" class="post-image">` : ''}
         <div class="content">${post.body}</div>
         <p class="timestamp">${new Date(Number(post.timestamp) / 1000000).toLocaleString()}</p>
       `;
@@ -66,3 +69,6 @@ async function displayPosts() {
     postsSection.innerHTML = '<p>Failed to load posts. Please try again later.</p>';
   }
 }
+
+// Call displayPosts immediately to show any existing posts
+displayPosts().catch(error => console.error('Initial post display failed:', error));
