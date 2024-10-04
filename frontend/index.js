@@ -20,9 +20,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     e.preventDefault();
     const title = document.getElementById('title').value;
     const author = document.getElementById('author').value;
+    const image = document.getElementById('image').value;
     const body = quill.root.innerHTML;
 
-    await backend.createPost(title, body, author);
+    await backend.createPost(title, body, author, image ? [image] : []);
     newPostForm.style.display = 'none';
     postForm.reset();
     quill.setContents([]);
@@ -42,6 +43,7 @@ async function displayPosts() {
     article.innerHTML = `
       <h2>${post.title}</h2>
       <p class="author">By ${post.author}</p>
+      ${post.image[0] ? `<img src="${post.image[0]}" alt="${post.title}" class="post-image">` : ''}
       <div class="content">${post.body}</div>
       <p class="timestamp">${new Date(Number(post.timestamp) / 1000000).toLocaleString()}</p>
     `;

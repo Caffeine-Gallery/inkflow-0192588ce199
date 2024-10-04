@@ -3,10 +3,11 @@ type Post =
    author: text;
    body: text;
    id: nat;
+   image: opt text;
    timestamp: int;
    title: text;
  };
 service : {
-  createPost: (text, text, text) -> (nat);
+  createPost: (text, text, text, opt text) -> (nat);
   getPosts: () -> (vec Post) query;
 }

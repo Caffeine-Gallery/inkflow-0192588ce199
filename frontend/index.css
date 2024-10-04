@@ -72,3 +72,13 @@ article h2 {
 .ql-editor {
     min-height: 200px;
 }
+
+.post-image {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+.content {
+    white-space: pre-wrap;
+}
